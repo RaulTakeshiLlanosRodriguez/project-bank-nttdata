@@ -1,0 +1,75 @@
+package com.nttdata.bank.api;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nttdata.bank.model.entity.Credit;
+import com.nttdata.bank.model.entity.CreditCard;
+import com.nttdata.bank.model.service.CreditCardService;
+import com.nttdata.bank.model.service.CreditService;
+
+@RestController
+@RequestMapping("/credits")
+public class CreditController {
+	
+	@Autowired
+	private CreditService creditService;
+	@Autowired
+	private CreditCardService creditCardService;
+	
+	@PostMapping
+	public ResponseEntity<String> createCredit(@RequestBody Credit credit){
+		if(credit.getCreditType().equalsIgnoreCase("personal")) {
+			Credit creditData = creditService.createCreditPersonal(credit.getCustomerId());
+			if(creditData != null) {
+				return ResponseEntity.status(HttpStatus.CREATED).body("Credit created successfully");
+			}else {
+				
+				return ResponseEntity.badRequest().body("The customer already has a personal credit.");
+			}
+		}else if(credit.getCreditType().equalsIgnoreCase("business")) {
+				creditService.createCreditBusiness(credit.getCustomerId());
+				return ResponseEntity.status(HttpStatus.CREATED).body("Credit created successfully");
+			}
+		else {
+			return ResponseEntity.badRequest().body("Type credit not exists");
+		}
+	}
+	
+	@PostMapping("/cards")
+	public ResponseEntity<String> createCreditCard(@RequestBody CreditCard creditCard){
+		if(creditCard != null) {
+			creditCardService.createCreditCard(creditCard);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Credit Card created successfully");
+		}else {
+			return ResponseEntity.badRequest().body("Error creating credit card");
+		}
+	}
+	
+	@PostMapping("/{creditId}/payment")
+	public ResponseEntity<String> makePayment(@PathVariable Long creditId, @RequestParam Double paymentAmount){
+		String message = creditService.makeCreditPayment(creditId, paymentAmount);
+		return ResponseEntity.ok(message);
+	}
+	
+	@PostMapping("/cards/{cardId}/consumption")
+	public ResponseEntity<String> makeConsumption(@PathVariable Long cardId, @RequestParam Double consumptionAmount){
+		String message = creditCardService.loadConsumptionCard(cardId, consumptionAmount);
+		return ResponseEntity.ok(message);
+	}
+	
+	@GetMapping("/{cardId}/balance")
+	public ResponseEntity<String> consultBalanceCreditCard(@PathVariable Long cardId){
+		Double balance = creditCardService.getBalance(cardId);
+		return ResponseEntity.ok("Balance: "+balance);
+	}
+	
+}

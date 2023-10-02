@@ -1,8 +1,11 @@
 package com.nttdata.bank.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.nttdata.bank.model.client.MovementFeignClient;
 import com.nttdata.bank.model.entity.CreditCard;
@@ -11,9 +14,7 @@ import com.nttdata.bank.model.repository.CreditCardRepository;
 import com.nttdata.bank.model.service.CreditCardService;
 import com.nttdata.bank.model.util.ResourceNotFoundException;
 
-import jakarta.persistence.Entity;
-
-@Entity
+@Service
 public class CreditCardServiceImpl implements CreditCardService{
 
 	@Autowired
@@ -65,6 +66,16 @@ public class CreditCardServiceImpl implements CreditCardService{
 		}else {
 			throw new ResourceNotFoundException("CreditCard not found");
 		}
+	}
+
+	@Override
+	public CreditCard getCreditCardById(Long id) {
+		return creditCardRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Credit card not found"));
+	}
+
+	@Override
+	public List<CreditCard> getAllCreditCards() {
+		return creditCardRepository.findAll();
 	}
 
 }

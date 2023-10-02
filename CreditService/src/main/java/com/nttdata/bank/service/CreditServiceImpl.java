@@ -9,11 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.nttdata.bank.model.client.MovementFeignClient;
 import com.nttdata.bank.model.entity.Credit;
-import com.nttdata.bank.model.entity.CreditBusiness;
-import com.nttdata.bank.model.entity.CreditPersonal;
 import com.nttdata.bank.model.entity.Movement;
 import com.nttdata.bank.model.repository.CreditRepository;
 import com.nttdata.bank.model.service.CreditService;
+import com.nttdata.bank.model.util.ResourceNotFoundException;
 
 @Service
 public class CreditServiceImpl implements CreditService{
@@ -25,33 +24,26 @@ public class CreditServiceImpl implements CreditService{
 	private MovementFeignClient movementFeign;
 	
 	@Override
-	public List<Credit> getCreditByCustomer(Long customerId) {
+	public List<Credit> getCreditByCustomer(Integer customerId) {
 		return creditRepository.findByCustomerId(customerId);
 	}
 
 	@Override
-	public Credit createCreditPersonal(Long customerId) {
-		List<Credit> listCreditPersonal = creditRepository.findByCustomerIdAndCreditType(customerId, "personal");
+	public Credit createCreditPersonal(Credit credit) {
+		List<Credit> listCreditPersonal = creditRepository.findByCustomerIdAndCreditType(credit.getCustomerId(), "personal");
 		if(!listCreditPersonal.isEmpty()) {
 			return null;
 		}
-		
-		CreditPersonal creditPersonal = new CreditPersonal();
-		creditPersonal.setCustomerId(customerId);
-		creditPersonal.setCreditType("personal");
-		return creditRepository.save(creditPersonal);
+		return creditRepository.save(credit);
 	}
 
 	@Override
-	public Credit createCreditBusiness(Long customerId) {
-		CreditBusiness creditBusiness = new CreditBusiness();
-		creditBusiness.setCustomerId(customerId);
-		creditBusiness.setCreditType("business");
-		return creditRepository.save(creditBusiness);
+	public Credit createCreditBusiness(Credit credit) {
+		return creditRepository.save(credit);
 	}
 
 	@Override
-	public String makeCreditPayment(Long id, Double paymentAumont) {
+	public String makeCreditPayment(Long id, Integer paymentAumont) {
 		Credit credit = creditRepository.findById(id).orElse(null);
 		if(credit != null) {
 			if(paymentAumont <= 0) {
@@ -69,7 +61,7 @@ public class CreditServiceImpl implements CreditService{
 			movement.setAccountId(id);
 			movement.setTypeMovement("payment");
 			movement.setTypeProduct("credit");
-			movement.setAmount(paymentAumont);
+			movement.setAmount(Double.valueOf(paymentAumont));
 			
 			ResponseEntity<String> response = movementFeign.createMovement(movement);
 			
@@ -78,6 +70,16 @@ public class CreditServiceImpl implements CreditService{
 			}
 		}
 		return "Credit Not Found";
+	}
+
+	@Override
+	public Credit getCreditById(Long id) {
+		return creditRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Credit not found"));
+	}
+
+	@Override
+	public List<Credit> getAllCredits() {
+		return creditRepository.findAll();
 	}
 
 }

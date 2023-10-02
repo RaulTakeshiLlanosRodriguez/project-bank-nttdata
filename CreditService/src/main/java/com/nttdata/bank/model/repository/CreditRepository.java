@@ -10,6 +10,6 @@ import com.nttdata.bank.model.entity.Credit;
 @Repository
 public interface CreditRepository extends JpaRepository<Credit, Long>{
 	
-	public List<Credit> findByCustomerIdAndCreditType(Long customerId, String creditType);
-	public List<Credit> findByCustomerId(Long customerId);
+	public List<Credit> findByCustomerIdAndCreditType(Integer customerId, String creditType);
+	public List<Credit> findByCustomerId(Integer customerId);
 }

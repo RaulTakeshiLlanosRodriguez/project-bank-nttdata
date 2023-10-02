@@ -19,9 +19,9 @@ public class Credit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long customerId;
+	private Integer customerId;
 	private String creditType;
-	private Double amount;
+	private Integer amount;
 	@Transient
 	private Customer customer;
 }

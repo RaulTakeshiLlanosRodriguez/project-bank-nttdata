@@ -1,5 +1,8 @@
 package com.nttdata.bank.api;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.bank.model.entity.Credit;
+import com.nttdata.bank.model.entity.CreditBusiness;
 import com.nttdata.bank.model.entity.CreditCard;
+import com.nttdata.bank.model.entity.CreditPersonal;
 import com.nttdata.bank.model.service.CreditCardService;
 import com.nttdata.bank.model.service.CreditService;
 
@@ -26,22 +31,44 @@ public class CreditController {
 	private CreditCardService creditCardService;
 	
 	@PostMapping
-	public ResponseEntity<String> createCredit(@RequestBody Credit credit){
-		if(credit.getCreditType().equalsIgnoreCase("personal")) {
-			Credit creditData = creditService.createCreditPersonal(credit.getCustomerId());
-			if(creditData != null) {
+	public ResponseEntity<String> createCredit(@RequestBody Map<String, Object> credit){
+		
+		String typeCredit = (String) credit.get("creditType");
+		if(typeCredit.equalsIgnoreCase("personal")) {
+			CreditPersonal creditData = new CreditPersonal();
+			creditData.setCustomerId((Integer) credit.get("customerId"));
+			creditData.setCreditType("personal");
+			creditData.setAmount((Integer) credit.get("amount"));
+			creditData.setDocumentIdentity((String) credit.get("documentIdentity"));
+			Credit credit2 = creditService.createCreditPersonal(creditData);
+			if(credit2 != null) {
 				return ResponseEntity.status(HttpStatus.CREATED).body("Credit created successfully");
 			}else {
-				
-				return ResponseEntity.badRequest().body("The customer already has a personal credit.");
+				return ResponseEntity.badRequest().body("Customer already has an credit personal");
 			}
-		}else if(credit.getCreditType().equalsIgnoreCase("business")) {
-				creditService.createCreditBusiness(credit.getCustomerId());
+			
+		}else if(typeCredit.equalsIgnoreCase("business")) {
+				CreditBusiness creditBusiness = new CreditBusiness();
+				creditBusiness.setCustomerId((Integer) credit.get("customerId"));
+				creditBusiness.setCreditType("business");
+				creditBusiness.setAmount((Integer) credit.get("amount"));
+				creditBusiness.setCompanyName((String) credit.get("companyName"));
+				creditService.createCreditBusiness(creditBusiness);
 				return ResponseEntity.status(HttpStatus.CREATED).body("Credit created successfully");
 			}
 		else {
 			return ResponseEntity.badRequest().body("Type credit not exists");
 		}
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Credit> getCreditById(@PathVariable Long id){
+		return ResponseEntity.ok(creditService.getCreditById(id));
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<Credit>> getAllCredits(){
+		return ResponseEntity.ok(creditService.getAllCredits());
 	}
 	
 	@PostMapping("/cards")
@@ -54,8 +81,18 @@ public class CreditController {
 		}
 	}
 	
+	@GetMapping("/cards/{id}")
+	public ResponseEntity<CreditCard> getCreditCardById(@PathVariable Long id){
+		return ResponseEntity.ok(creditCardService.getCreditCardById(id));
+	}
+	
+	@GetMapping("/cards")
+	public ResponseEntity<List<CreditCard>> getAllCreditCards(){
+		return ResponseEntity.ok(creditCardService.getAllCreditCards());
+	}
+	
 	@PostMapping("/{creditId}/payment")
-	public ResponseEntity<String> makePayment(@PathVariable Long creditId, @RequestParam Double paymentAmount){
+	public ResponseEntity<String> makePayment(@PathVariable Long creditId, @RequestParam Integer paymentAmount){
 		String message = creditService.makeCreditPayment(creditId, paymentAmount);
 		return ResponseEntity.ok(message);
 	}
@@ -66,7 +103,7 @@ public class CreditController {
 		return ResponseEntity.ok(message);
 	}
 	
-	@GetMapping("/{cardId}/balance")
+	@GetMapping("/cards/{cardId}/balance")
 	public ResponseEntity<String> consultBalanceCreditCard(@PathVariable Long cardId){
 		Double balance = creditCardService.getBalance(cardId);
 		return ResponseEntity.ok("Balance: "+balance);
