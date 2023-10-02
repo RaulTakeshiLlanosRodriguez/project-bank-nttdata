@@ -1,0 +1,146 @@
+!SESSION 2023-10-02 15:01:04.694 -----------------------------------------------
+eclipse.buildId=4.20.0.202309081654
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_PE
+Framework arguments:  -product org.springframework.boot.ide.branding.sts4
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.springframework.boot.ide.branding.sts4
+
+!ENTRY org.eclipse.emf.ecore 2 0 2023-10-02 15:01:07.483
+!MESSAGE Both 'org.eclipse.jst.j2ee.core' and 'org.eclipse.jst.j2ee.core' register a package for 'application.xmi'
+
+!ENTRY org.eclipse.jface 2 0 2023-10-02 15:01:22.813
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2023-10-02 15:01:22.813
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.jdt.ui.navigate.open.type"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.lsp4e.symbolinworkspace"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2023-10-02 15:01:30.880
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\USER'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:01:45.840
+!MESSAGE Classpath changed for project: AccountService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:01:47.494
+!MESSAGE Classpath changed for project: AccountService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:04.743
+!MESSAGE Classpath changed for project: AccountService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:04.771
+!MESSAGE Boot project ADDED: AccountService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:04.772
+!MESSAGE Starting Boot LS...
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:04.828
+!MESSAGE Started Boot LS process
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2023-10-02 15:02:04.862
+!MESSAGE Command list starting LS: org.springframework.tooling.boot.ls
+START:
+E:\spring tools\sts-4.20.0.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.8.v20230831-1047\jre\bin\javaw.exe
+-cp
+E:\spring tools\sts-4.20.0.RELEASE\plugins\org.springframework.tooling.boot.ls_1.49.0.202309081616\servers\spring-boot-language-server\BOOT-INF\classes;E:\spring tools\sts-4.20.0.RELEASE\plugins\org.springframework.tooling.boot.ls_1.49.0.202309081616\servers\spring-boot-language-server\BOOT-INF\lib\*
+-Dsts.lsp.client=eclipse
+-Dlsp.completions.indentation.enable=true
+-Xmx1024m
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:TieredStopAtLevel=1
+-Xlog:jni+resolve=off
+-Dspring.config.location=file:E:\spring tools\sts-4.20.0.RELEASE\plugins\org.springframework.tooling.boot.ls_1.49.0.202309081616\servers\spring-boot-language-server\BOOT-INF\classes\application.properties
+-XX:ErrorFile=C:/Users/USER/Documents/workspace-spring-tool-suite-4-4.20.0.RELEASE/nttdata-bank-project/.metadata/.plugins/org.springframework.tooling.boot.ls/fatal-error-spring-boot_1696276924861
+org.springframework.ide.vscode.boot.app.BootLanguageServerBootApp
+--languageserver.hover-timeout=225
+END
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:04.865
+!MESSAGE DelegatingStreamConnectionProvider - Starting Boot LS
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:04.989
+!MESSAGE Classpath changed for project: AccountService
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2023-10-02 15:02:05.192
+!MESSAGE Started org.springframework.tooling.boot.ls LS process 11216
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:15.823
+!MESSAGE Classpath changed for project: CreditService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:16.399
+!MESSAGE Classpath changed for project: CreditService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:24.948
+!MESSAGE Classpath changed for project: CreditService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:24.952
+!MESSAGE Boot project ADDED: CreditService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:44.119
+!MESSAGE Classpath changed for project: CustomerService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:44.581
+!MESSAGE Classpath changed for project: CustomerService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:51.164
+!MESSAGE Classpath changed for project: CustomerService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:02:51.176
+!MESSAGE Boot project ADDED: CustomerService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:03:05.898
+!MESSAGE Classpath changed for project: MovementsService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:03:06.219
+!MESSAGE Classpath changed for project: MovementsService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:03:12.644
+!MESSAGE Classpath changed for project: MovementsService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:03:12.645
+!MESSAGE Boot project ADDED: MovementsService
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:03:26.695
+!MESSAGE Classpath changed for project: ms-nttdata-eureka
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:03:27.035
+!MESSAGE Classpath changed for project: ms-nttdata-eureka
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:03:35.107
+!MESSAGE Classpath changed for project: ms-nttdata-eureka
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:03:35.128
+!MESSAGE Boot project ADDED: ms-nttdata-eureka
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:03:35.355
+!MESSAGE Classpath changed for project: ms-nttdata-eureka
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:03:55.001
+!MESSAGE Classpath changed for project: ms-nttdata-gateway
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:03:55.337
+!MESSAGE Classpath changed for project: ms-nttdata-gateway
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:04:01.213
+!MESSAGE Classpath changed for project: ms-nttdata-gateway
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2023-10-02 15:04:01.215
+!MESSAGE Boot project ADDED: ms-nttdata-gateway
